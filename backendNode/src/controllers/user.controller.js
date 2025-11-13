@@ -186,6 +186,24 @@ export const getPreference = async (req, res) => {
   }
 };
 
+async function waitForServer(url, data, maxWait = 60000, interval = 3000) {
+  const startTime = Date.now();
+
+  while (true) {
+    try {
+      const response = await axios.post(url, data);
+      return response.data; // Server is awake, return data
+    } catch (err) {
+      const elapsed = Date.now() - startTime;
+      if (elapsed >= maxWait) {
+        throw new Error("Server did not wake up in time");
+      }
+      console.log("Server sleeping, waiting...");
+      await new Promise((res) => setTimeout(res, interval));
+    }
+  }
+}
+
 export const problem = async (req, res) => {
   const { problemText, preferredGender, preferredLanguage } = req.body;
 
@@ -215,7 +233,7 @@ export const problem = async (req, res) => {
 
   try {
     // ======= Get the response from the flask api ============
-    const response = await axios.post(process.env.FLASK_URL, {
+    const responseData = await waitForServer(process.env.FLASK_URL, {
       text: problemTrimmed,
     });
 
