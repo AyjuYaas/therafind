@@ -139,7 +139,7 @@ const Documents = (): JSX.Element => {
                   {/* Text Message */}
                   {document.fileName ? (
                     <span
-                      className={`rounded-xl max-w-50 sm:max-w-80 md:max-w-100 lg:max-w-120 text-base break-words`}
+                      className={`rounded-xl max-w-40 text-base break-words`}
                     >
                       {document.fileName}
                     </span>

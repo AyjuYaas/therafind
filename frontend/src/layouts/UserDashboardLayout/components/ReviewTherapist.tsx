@@ -48,6 +48,10 @@ const ReviewTherapist = ({
         reviewText: existingReview.reviewText,
       });
     }
+
+    return () => {
+      setFormData({ rating: 0, reviewText: "" }); // Reset formData on unmount
+    };
   }, [existingReview]);
 
   const { reviewTherapist, loadingReview } = useUserStore();

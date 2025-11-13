@@ -104,6 +104,15 @@ export async function updateTherapist(req, res) {
       }
     }
 
+    const nameRegex = /^[A-Za-z\s\-]{2,}$/;
+    if (!nameRegex.test(updatedData.name)) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Name must be at least 2 characters long and contain only letters, spaces, or hyphens",
+      });
+    }
+
     // ============== Email Validation ============
     if (!validate(updatedData.email)) {
       return res.status(400).json({
@@ -117,6 +126,13 @@ export async function updateTherapist(req, res) {
       return res.status(400).json({
         success: false,
         message: "Phone number should be 10 digits",
+      });
+    }
+
+    if (updatedData.experience < 0 || updatedData.experience > 50) {
+      return res.status(400).json({
+        success: false,
+        message: "Experience should be between 0 and 50 years",
       });
     }
 

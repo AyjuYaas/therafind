@@ -59,10 +59,10 @@ const ProblemBar = ({ preference, toggleProblemBar }: Props): JSX.Element => {
   return (
     <div className="fixed z-100 top-0 bottom-0 left-0 right-0 h-screen w-full backdrop-blur-xs flex justify-center items-center">
       <div
-        className="relative w-200 min-h-screen md:min-h-100 h-auto bg-cbg-two px-8 py-10 rounded-4xl"
+        className="relative w-200 max-h-190 h-screen bg-cbg-two px-8 py-10 rounded-4xl overflow-auto"
         ref={menuRef}
       >
-        <div className="flex flex-col text-xl md:text-3xl md:text-5xl">
+        <div className="flex flex-col text-xl md:text-5xl">
           <span>Enter</span>
           <span className="font-fancy tracking-wider">
             Your Problem & Preference
@@ -137,7 +137,7 @@ const ProblemBar = ({ preference, toggleProblemBar }: Props): JSX.Element => {
 
           <button
             type="submit"
-            className={`absolute bottom-5 right-6 size-12 text-2xl flex justify-center items-center rounded-full cursor-pointer ${
+            className={`size-12 -mt-10 text-2xl self-end flex justify-center items-center rounded-full cursor-pointer ${
               loading
                 ? "cursor-not-allowed bg-gray-500"
                 : "bg-amber-400 hover:bg-amber-500"

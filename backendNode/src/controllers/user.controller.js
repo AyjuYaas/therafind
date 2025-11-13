@@ -91,6 +91,15 @@ export const updateProfile = async (req, res) => {
       });
     }
 
+    const nameRegex = /^[A-Za-z\s\-]{2,}$/;
+    if (!nameRegex.test(updatedData.name)) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Name must be at least 2 characters long and contain only letters, spaces, or hyphens",
+      });
+    }
+
     // ============== Check if the phone-number is 10 digits ============
     if (updatedData.phone.length !== 10 || !/^\d+$/.test(updatedData.phone)) {
       return res.status(400).json({
@@ -225,8 +234,6 @@ export const problem = async (req, res) => {
       preferredGender: preferredGender || "Any",
       preferredLanguage: preferredLanguage || "English",
     };
-
-    console.log(preferenceData);
 
     // ======= update the user's problem text and problems ============
     const updatedPreference = await Preference.findOneAndUpdate(

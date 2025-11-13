@@ -25,6 +25,15 @@ export const userSignup = async (req, res) => {
       });
     }
 
+    const nameRegex = /^[A-Za-z\s\-]{2,}$/;
+    if (!nameRegex.test(name)) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Name must be at least 2 characters long and contain only letters, spaces, or hyphens",
+      });
+    }
+
     // ============== Email Validation ============
     if (!validator.validate(email)) {
       return res.status(400).json({
