@@ -21,11 +21,11 @@ export const initializeSocket = (httpServer) => {
   });
 
   io.on("connection", (socket) => {
-    console.log(`User connected with socket id: ${socket.id}`);
+    // console.log(`User connected with socket id: ${socket.id}`);
     connectedUsers.set(socket.userId, socket.id);
 
     socket.on("disconnect", () => {
-      console.log(`User disconnected with socket id: ${socket.id}`);
+      // console.log(`User disconnected with socket id: ${socket.id}`);
       connectedUsers.delete(socket.userId);
     });
   });
